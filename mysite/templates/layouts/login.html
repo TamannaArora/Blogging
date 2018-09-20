@@ -1,0 +1,162 @@
+{%extends 'layouts/base.html'%} {% load static %} {% block content %} {{request.user}}
+<div class="login-form section text-center">
+    <div class="container">
+        <h4 class="rad-txt">
+            <a id="signinlink" href="#" onclick="$('#signupbox').hide(); $('#forgotbox').hide(); $('#loginbox').show()">
+                <span class="abtxt1">Sign in</span>
+            </a>
+            <a href="{% url 'accounts:register' %}" >
+                <span class="abtext">sign up</span>
+            </a>
+        </h4>
+        <div id="loginbox" style="margin-top:30px;" class="mainbox  loginbox">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Sign In</div>
+
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                    <form id="login-form" class="form-horizontal" method="POST">
+                        {% csrf_token %}
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            <input for="id_username" id="id_username" name="{{ form.username.name }}" type="text" class="form-control" value="{{request.POST.username}}"
+                                placeholder="username or email" required="">
+                        </div>
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-lock"></i>
+                            </span>
+                            <input for="id_password" id="id_password" type="password" class="form-control" name="{{ form.password.name }}" placeholder="password"
+                                required="">
+                        </div>
+                        <div class="input-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <br/> {% if form.errors %} {% for error in form.non_field_errors %}
+                        <p class="" style="color: red;">{{error}}</p>
+                        {% endfor %} {% endif %}
+                        <div style="margin-top:10px" class="form-group">
+                            <!-- Button -->
+                            <div class="col-sm-12 controls">
+                                <input id="btn-login" class="btn btn-success" name="submit" value="Login" type="submit" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 control">
+                                <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                                    Forgot password?
+                                    <a href="{% url 'accounts:forgot-password-request-otp' %}">
+                                        Request for a new one here!
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+{%endblock%}
+        <!-- forgotModal -->
+        <!--<div id="forgotbox" style="display:none; margin-top:50px" class="mainbox loginbox">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Forgot Password</div>
+
+                </div>
+                <div class="panel-body">
+                    <form id="forgotform" class="form-horizontal" action="#" method="post">
+                        {% csrf_token %}
+                        <div id="forgotalert" style="display:none" class="alert alert-danger">
+                            <p>Error:</p>
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-3 control-label">Email</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" name="email" placeholder="Email Address" required="">
+                            </div>
+                        </div>
+                        <div style="margin-top:10px" class="form-group">
+                            <!-- Button -->
+                            <!--<div class="col-sm-12 controls">
+                                <input id="btn-forgot" class="btn btn-success" name="forgot" value="Submit" type="submit" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- /.modal -->
+        <!--<div id="signupbox" style="display:none; margin-top:50px" class="mainbox loginbox">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Sign Up</div>
+
+                </div>
+                <div class="panel-body">
+                    <form id="signupform" class="form-horizontal" action="" method="post">
+                        {% csrf_token %}
+                        <div id="signupalert" style="display:none" class="alert alert-danger">
+                            <p>Error:</p>
+                            <span></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-3 control-label">Email</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" name="email" placeholder="Email Address" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-3 control-label">First Name</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" name="firstname" placeholder="First Name" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-3 control-label">Last Name</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" name="lastname" placeholder="Last Name" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-3 control-label">Password</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input type="password" class="form-control" name="passwd" placeholder="Password" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-3 control-label">Confirm Password</label>
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                <input type="password" class="form-control" name="passwd2" placeholder="Confirm Password" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Button -->
+                            <!--<div class="signup-btn">
+                                <input type="submit" name="submit_register" value="Submit">
+                                    <i class="icon-hand-right"></i> &nbsp; Sign Up</button>
+                            </div>
+                        </div>
+                        <div style="border-top: 1px solid #999; padding-top:20px" class="form-group">
+
+                            <div class="f-btn">
+                                <button id="btn-fbsignup" type="button" class="btn btn-primary">
+                                    <i class="icon-facebook"></i>   Sign Up with Facebook</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>-->-->
+<!--</div>-->

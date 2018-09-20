@@ -1,0 +1,9 @@
+
+{% load blogapp_tags wagtailcore_tags %}
+
+<ul class="dropdown-menu" role="menu">
+  <li><a href="{% pageurl parent %}">{{ parent.title }}</a></li>
+  {% for child in menuitems_children %}
+    <li><a href="{% pageurl child %}" role="menuitem">{{ child.title }}</a></li>
+  {% endfor %}
+</ul>

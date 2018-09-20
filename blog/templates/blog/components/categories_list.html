@@ -1,0 +1,6 @@
+{% load static wagtailcore_tags wagtailimages_tags  %}
+{% load blogapp_tags %}
+{% get_site_root as site_root %}
+        {% for category in categories %}
+            <li class="{% if category.active %} active{% endif %}"><a href="/blogs/?key={{category.slug}}">{{category.name}}</a></li>
+        {% endfor %}

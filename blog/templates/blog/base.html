@@ -1,0 +1,39 @@
+{% load static wagtailcore_tags wagtailimages_tags blogapp_tags%}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+<title>Business_Blog a Blogging Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Business_Blog Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="applijewelleryion/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+<!-- Bootstrap Core CSS -->
+<link href="{% static 'blog/css/bootstrap.css' %}" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="{% static 'blog/css/style.css' %}" rel="stylesheet">
+
+<!-- Custom Theme files -->
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+{% block extracss %} {% endblock %}
+<script src="{% static 'blog/js/jquery-1.11.1.min.js' %}"></script>
+<script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+        <div id="home">
+            {% include "includes/header.html" %}
+            <main>
+                {% block content %} {% endblock %}
+            </main>
+            {% include "includes/footer.html" %}
+            <script src="{% static 'blog/js/jquery-2.2.3.min.js' %}"></script>
+            <!-- cart-js -->
+            <script src="{% static 'blog/js/minicart.js' %}"></script>
+        </div>
+</body>    

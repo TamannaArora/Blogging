@@ -1,0 +1,71 @@
+
+{%extends "layouts/base.html"%}
+{%block content%}
+<br><br><br>
+<div id="signupbox" style=" margin-top:50px" class="mainbox loginbox">
+   <div class="panel panel-info">
+      <div class="panel-heading">
+         <div class="panel-title">Sign Up</div>
+      </div>
+      <div class="panel-body">
+         <form id="signupform" class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+             {% if form.errors %}
+                <p class="validation-error"> {{form.errors.email.0}} </p>
+             {% endif %}
+            <div id="signupalert" style="display:none" class="alert alert-danger">
+               <p>Error:</p>
+               <span></span>
+            </div>
+            <div class="form-group">
+               <label class="col-md-3 col-sm-3 col-xs-3 control-label">{{form.email.label}}</label>
+               <div class="col-md-9 col-sm-9 col-xs-9">
+                  <input type="text" class="form-control" name="email" placeholder="Email Address" required="">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-md-3 col-sm-3 col-xs-3 control-label">{{form.firstname.label}}</label>
+               <div class="col-md-9 col-sm-9 col-xs-9">
+                  <input type="text" class="form-control" name="firstname" placeholder="First Name" required="">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-md-3 col-sm-3 col-xs-3 control-label">{{form.lastname.label}}</label>
+               <div class="col-md-9 col-sm-9 col-xs-9">
+                  <input type="text" class="form-control" name="lastname" placeholder="Last Name" required="">
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-md-3 col-sm-3 col-xs-3 control-label">{{form.password.label}}</label>
+               <div class="col-md-9 col-sm-9 col-xs-9">
+                  <input type="password" class="form-control" name="password" placeholder="Password" required>
+                  {% if form.errors %}
+                  <p class="validation-error"> {{form.errors.password.0}} </p>
+                  {% endif %}
+               </div>
+            </div>
+            <div class="form-group">
+               <label class="col-md-3 col-sm-3 col-xs-3 control-label">{{form.confirm_password.label}}</label>
+               <div class="col-md-9 col-sm-9 col-xs-9">
+                  <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required>
+                  {% if form.errors %}
+                  <p class="validation-error"> {{form.errors.confirm_password.0}} </p>
+                  {% endif %}
+               </div>
+               
+            </div>
+            
+            <!--<div class="form-group">
+                            <!--<button>-->
+                            <div class="signup-btn">
+                                <input type="submit" name="submit_register" value="Submit">
+                               <!--<a href="javascript:void(0);" onClick="$('#signupbox').hide(); $('#otpbox').show()">-->
+                                    <!--<i class="icon-hand-right"></i> &nbsp; Sign Up</button>-->
+                            <!--</div>
+                        </div>-->
+                </form>
+          </div>
+   </div>
+</div>
+
+{%endblock%}

@@ -1,0 +1,49 @@
+{% extends "layouts/base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="technology">
+	<div class="container">
+		<div class="col-md-9 technology-left">
+		<div class="tech-no">
+            <div class="tc-ch">
+                {% if request.GET.tag|length %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Viewing all blog posts by <span class="outline">{{ request.GET.tag }}</span></h3>
+                {% endif %}
+                <br>
+                <br>
+                    </div>
+                </div>
+                {% for blogpage in blogpages %}
+                    {% with blogpage=blogpage.specific %}
+
+                        {% with blogpage.main_image as main_image %}
+                            {% if main_image %}
+
+                            {% image main_image original as header_image %}
+
+                            <div class="tch-img">
+                                <a href="{% pageurl blogpage %}"><img src="{{ header_image.url }}" class="img-responsive" alt="a"></a>
+                            </div>
+                            
+                            {% endif %}
+                        {% endwith %}
+                        <p>
+                    <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
+                    <small>Revised: {{ blogpage.latest_revision_created_at }}</small><br />
+                </p>
+                    <h3><a href="{% pageurl blogpage %}">{{blogpage.intro}}</a></h3>
+
+                    <p>{{ blogpage.body|richtext }}</p>
+                    {% endwith %}
+                {% endfor %}
+        </div>
+        <div class="clearfix"></div>
+        </div>
+    </div>
+    {% include "includes/sidebar.html" %}
+</div>
+    
+{% endblock %}

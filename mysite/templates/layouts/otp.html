@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+{% block meta-title %}
+<title>{% trans 'Woo Club Shoppable Video - Verify Account' %}</title>
+{% endblock %}
+{% block meta-tags %}
+<meta name="description" content="{% trans 'Woo Club Shoppable video connects video action to fantastic products at great prices, AND rewards members for Tagging and sharing with friends and followers.' %} ">
+{% endblock %}
+{%block content%}
+
+    <div class="account-con">
+        <div class="reset-top">
+            <img src="{% static 'assets/images/reset-img.png' %}" width="335" height="245" alt="{% trans 'Reset password' %}">
+        </div>
+        <h2>{% trans 'Verify Account' %}</h2>
+        <p>{% trans "We've sent an account verification code to your email address" %}</p>
+        
+        
+        <form class="verification-code" id="verification-code-form"  novalidate method="post">
+            {% csrf_token %}
+            <p>{% trans 'Verification Code' %}</p>
+            {% if form.errors %}
+                <p class="validation-error"> {{form.errors.otp_token.0}} </p>
+            {% endif %}
+            <div class="verify-code">
+                {{form.otp_token}}
+            </div>
+            <button title="{% trans 'VERIFY' %}" class="green-button verify-dissable">{% trans 'VERIFY' %}</button>
+        </form>
+    </div>
+{% endblock %}

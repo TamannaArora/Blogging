@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+{% image page.banner_image original as banner_image %}
+
+<div class="banner" style="background: url({{banner_image.url}}) no-repeat 0px 0px;">
+        <div class="container">
+            <h2>Contrary to popular belief, Lorem Ipsum simply</h2>
+            <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+            <a href="#">READ ARTICLE</a>
+        </div>
+    </div>
+    <!-- technology -->
+    <div class="technology">
+        <div class="container">
+            <div class="col-md-9 technology-left">
+            <div class="tech-no">
+                <!-- technology-top -->
+                {% for post in blogpages %}
+                    {% with post=post.specific %}
+                        <div class="tc-ch">
+                                <div class="tch-img">
+                                        {% image post.main_image original as main_image %}
+                                    <a href="{{post.url}}"><img src="{{main_image.url}}" class="img-responsive" alt=""/></a>
+                                </div>
+                                <a class="blog blue" href="{{post.url}}">{{post.category}}</a>
+                                <h3><a href="{{post.url}}">{{ post.description}}</a></h3>
+                                    <p>{{ post.body|richtext}}</p>
+                                    
+                                
+                                    <div class="blog-poast-info">
+                                        <ul>
+                                            <li><i class="glyphicon glyphicon-user"> </i><a class="admin" href="#"> {{post.owner}} </a></li>
+                                            <li><i class="glyphicon glyphicon-calendar"> </i>{{post.latest_revision_created_at}}</li>
+                                            <li><i class="glyphicon glyphicon-comment"> </i><a class="p-blog" href="#">3 Comments </a></li>
+                                            <li><i class="glyphicon glyphicon-heart"> </i><a class="admin" href="#">5 favourites </a></li>
+                                            <li><i class="glyphicon glyphicon-eye-open"> </i>1.128 views</li>
+                                        </ul>
+                                    </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+                <div class="clearfix"></div>
+                </div>
+            </div>
+            {% include 'includes/sidebar.html' %}
+        </div>
+        <div class="clearfix"></div>
+        <!-- technology-right -->
+    </div>
+</div>
+{% endblock %}

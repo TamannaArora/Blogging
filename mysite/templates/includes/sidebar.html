@@ -1,0 +1,47 @@
+{% load static wagtailcore_tags wagtailimages_tags %}
+<div class="col-md-3 technology-right-1">
+        <div class="blo-top">
+            <div class="tech-btm">
+            <img src="images/banner1.jpg" class="img-responsive" alt=""/>
+            </div>
+        </div>
+        {% if request.user.is_anonymous %}
+        <div class="blo-top">
+            <div class="tech-btm">
+            <h4>Sign up to our newsletter</h4>
+            <p>Pellentesque dui, non felis. Maecenas male</p>
+                <div class="name">
+                    <form>
+                        <input type="text" placeholder="Email" required="">
+                    </form>
+                </div>	
+                <div class="button">
+                    <form action="/accounts/register">
+                        <input type="submit" value="Subscribe">
+                    </form>
+                </div>
+                    <div class="clearfix"> </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="blo-top1">
+            <div class="tech-btm">
+            <h4>Top stories of the week </h4>
+            {% for post in top_stories %}
+                <div class="blog-grids">
+                        {% with post=post.specific %}
+                    <div class="blog-grid-left">
+                        {% image post.main_image original as main_image %}
+                        <a href="{{post.url}}"><img src="{{main_image.url}}" class="img-responsive" alt=""/></a>
+                     </div>
+                    <div class="blog-grid-right">
+                        <h5><a href="{{post.url}}">{{ post.description|truncatechars:35}}</a> </h5>
+                    </div>
+                <div class="clearfix"> </div>
+                        {% endwith %}
+            {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+   <div class="clearfix"></div>

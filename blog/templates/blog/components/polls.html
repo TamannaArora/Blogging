@@ -1,0 +1,7 @@
+{% for poll in polls %}
+    <p>
+        <a href="{{ poll.thank_you_text }}">
+            {{ poll.intro }}
+        </a>
+    </p>
+{% endfor %}

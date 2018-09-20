@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %}
+{% load comments %}
+{% load static wagtailcore_tags wagtailimages_tags blogapp_tags %}
+
+
+{% block content %}
+<div class="banner">
+	<div class="container">
+		<h2>Contrary to popular belief, Lorem Ipsum simply</h2>
+		<p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+		<a href="#">READ ARTICLE</a>
+	</div>
+</div>
+<!-- technology -->
+<div class="technology">
+	<div class="container">
+		<div class="col-md-9 technology-left">
+		<div class="tech-no">
+			<!-- technology-top -->
+			
+			<div class="tc-ch">
+				{% if tag %}
+				<div class="row">
+					<div class="col-md-12">
+						<p>Viewing all blog posts by <span class="outline">{{ tag }}</span></p>
+					</div>
+				</div>
+				{% endif %}
+                    {% for post in posts %}
+                        {% with post=post.specific %}
+
+                                {% with post.main_image as main_image %}
+                                    {% if main_image %}
+
+                                    {% image main_image original as header_image %}
+
+                                    <div class="tch-img">
+                                        <a href="{% pageurl post %}"><img src="{{ header_image.url }}" class="img-responsive" alt="a"></a>
+                                    </div>
+                                    
+                                    {% endif %}
+                                {% endwith %}
+
+                 
+
+                    <h3><a href="{% pageurl post %}">{{post.intro}}</a></h3>
+
+                    <p>{{ post.body|richtext }}</p>
+					{% get_comment_count for post as comment_count %}
+						<div class="blog-poast-info">
+							<ul>
+								<li><i class="glyphicon glyphicon-user"> </i><a class="admin" href="#">{{post.owner}}</a></li>
+								<li><i class="glyphicon glyphicon-calendar"> </i>{{post.date}}</li>
+								<li><i class="glyphicon glyphicon-comment"> </i><a class="p-blog" href="#">{{comment_count}} </a></li>
+								<li><i class="glyphicon glyphicon-heart"> </i><a class="admin" href="#">5 favourites </a></li>
+								<li><i class="glyphicon glyphicon-eye-open"> </i>1.128 views</li>
+							</ul>
+                        </div>
+                        {% endwith %}
+					{% endfor %}    
+			
+			</div>
+			<div class="clearfix"></div>
+			</div>
+		</div>
+		{% include "includes/sidebar.html" %}
+	</div>
+</div>
+<!-- technology -->
+{% endblock %}
