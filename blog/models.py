@@ -55,18 +55,18 @@ class BlogIndexPage(RoutablePageMixin, Page):
     # # Speficies that only BlogPage objects can live under this index page
     # subpage_types = ['BlogPage']
 
-    @property
-    def blogs(self):
-        # Get list of blog pages that are descendants of this page
-        blogs = BlogPage.objects.descendant_of(self).live()
-        blogs = blogs.order_by(
-            '-date'
-        ).select_related('owner').prefetch_related(
-            'tagged_items__tag',
-            'categories',
-            'categories__category',
-        )
-        return blogs
+    # @property
+    # def blogs(self):
+    #     # Get list of blog pages that are descendants of this page
+    #     blogs = BlogPage.objects.descendant_of(self).live()
+    #     blogs = blogs.order_by(
+    #         '-date'
+    #     ).select_related('owner').prefetch_related(
+    #         'tagged_items__tag',
+    #         'categories',
+    #         'categories__category',
+    #     )
+    #     return blogs
    
     def get_posts(self):
         posts = BlogPage.objects.live()
@@ -86,17 +86,17 @@ class BlogIndexPage(RoutablePageMixin, Page):
         context['COMMENTS_APP'] = COMMENTS_APP
         return context
 
-    @route(r'^tag/(?P<tag>[-\w]+)/$')
-    def post_by_tag(self, request, tag, *args, **kwargs):
-        self.search_type = 'tag'
-        self.search_term = tag
-        self.posts = self.get_posts().filter(tags__slug=tag)
-        return Page.serve(self, request, *args, **kwargs)
+    # @route(r'^tag/(?P<tag>[-\w]+)/$')
+    # def post_by_tag(self, request, tag, *args, **kwargs):
+    #     self.search_type = 'tag'
+    #     self.search_term = tag
+    #     self.posts = self.get_posts().filter(tags__slug=tag)
+    #     return Page.serve(self, request, *args, **kwargs)
 
-    @route(r'^$')
-    def post_list(self, request, *args, **kwargs):
-        self.posts = self.get_posts()
-        return Page.serve(self, request, *args, **kwargs) 
+    # @route(r'^$')
+    # def post_list(self, request, *args, **kwargs):
+    #     self.posts = self.get_posts()
+    #     return Page.serve(self, request, *args, **kwargs) 
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full"),
@@ -149,21 +149,21 @@ class BlogCategory(models.Model):
     class Meta:
         verbose_name_plural = 'Blog Categories'
 
-def get_blog_context(context):
-    """ Get context data useful on all blog related pages """
-    context['authors'] = get_user_model().objects.filter(
-        owned_pages__live=True,
-        owned_pages__content_type__model='blogpage'
-    ).annotate(Count('owned_pages')).order_by('-owned_pages__count')
-    context['all_categories'] = BlogCategory.objects.all()
-    context['root_categories'] = BlogCategory.objects.filter(
-        parent=None,
-    ).prefetch_related(
-        'children',
-    ).annotate(
-        blog_count=Count('blogpage'),
-    )
-    return context
+# def get_blog_context(context):
+#     """ Get context data useful on all blog related pages """
+#     context['authors'] = get_user_model().objects.filter(
+#         owned_pages__live=True,
+#         owned_pages__content_type__model='blogpage'
+#     ).annotate(Count('owned_pages')).order_by('-owned_pages__count')
+#     context['all_categories'] = BlogCategory.objects.all()
+#     context['root_categories'] = BlogCategory.objects.filter(
+#         parent=None,
+#     ).prefetch_related(
+#         'children',
+#     ).annotate(
+#         blog_count=Count('blogpage'),
+#     )
+#     return context
 
 
 
@@ -230,7 +230,6 @@ class BlogPage(Page):
             FieldPanel('poll')
         ], heading="Blog Information"),
         FieldPanel('date'),
-        FieldPanel('author'),
         FieldPanel('intro'),
         FieldPanel('description'),
         FieldPanel('body', classname="full"),
