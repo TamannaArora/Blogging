@@ -1,4 +1,4 @@
-Django==1.11
+Django==1.11.29
 Pillow==5.2.0
 Unidecode==1.0.22
 Willow==1.1
